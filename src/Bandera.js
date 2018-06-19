@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Bandera = (props) => {
-    console.log(props.paises)
+    console.log(props)
     let flag = props.paises.filter( pais => {
         return pais.code === props.equipo
     })
