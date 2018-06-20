@@ -69,10 +69,12 @@ class App extends Component {
     this.getToday();
     this.getCurrent();
 
+    //OPTIMIZACIÓN:
+    //Hacer componentDidUpdate para ver si el state cambió o sigue igual en cada intervalo!!!
     this.intervalo = setInterval(() => {
       console.log("Intervalo cumplido")
       this.getCurrent()
-    }, 30*1000);
+    }, 40*1000);
   }
 
   componentWillUnmount(){
@@ -80,27 +82,45 @@ class App extends Component {
   }
 
   render() {
+
+    let today;
+    if(this.state.hoy !== null && this.state.equipos !== null){
+
+      if(this.state.current !== null){
+        today = this.state.hoy.filter( e => {
+          return e.fifa_id !== this.state.current.fifa_id
+        }).map( h => {
+          return (
+            <Partido partido={h} paises={this.state.equipos} />
+          )
+        })
+      }else if(this.state.current === null){
+        today = this.state.hoy.map( h => {
+          return (
+            <Partido partido={h} paises={this.state.equipos} />
+          )
+        })
+      }
+
+
+    }
+
     let partidos;
     console.log(this.state.equipos)
     if (this.state.current === null && this.state.siguiente !== null && this.state.equipos !== null){
       partidos =  (
-        <Partido partido={this.state.siguiente} paises={this.state.equipos} />
+        <div>
+          <Partido partido={this.state.siguiente} paises={this.state.equipos} />
+          {this.getToday()}
+        </div>
       )
 
     }else if(this.state.current !==null && this.state.equipos !== null){
-
       partidos = (
-        <Partido partido={this.state.current} paises={this.state.equipos} />
+        <div>
+          <Partido partido={this.state.current} paises={this.state.equipos} />
+        </div>
       )
-    }
-
-    let today;
-    if(this.state.hoy !== null && this.state.equipos !== null){
-      today = this.state.hoy.map( h => {
-        return (
-          <Partido partido={h} paises={this.state.equipos} />
-        )
-      })
     }
 
     return (

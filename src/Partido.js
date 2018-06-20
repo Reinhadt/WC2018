@@ -6,10 +6,16 @@ import Goles from './Goles'
 
 const Partido = (props) => {
     let fecha = moment(props.partido.datetime);
+
+
     let location = (
         <div>
             <p>{props.partido.location}</p>
             <p>{props.partido.venue}</p>
+        </div>
+    )
+    let horas = (
+        <div>
             <p>{fecha.date()}/{fecha.month()+1}</p>
             <p>{fecha.hours()}:00 Hrs.</p>
         </div>
@@ -20,10 +26,15 @@ const Partido = (props) => {
             <p>{props.partido.away_team.goals}</p>
         </div>
     )
-    
+    let tiempo = (
+        <div>
+            <p>{props.partido.time}</p>
+        </div>
+    )
+
     let goles;
 
-    if(props.partido.status === 'in-progress'){
+    if(props.partido.status === 'completed' || props.partido.status === 'in progress'){
         goles = (
             <div>
                 <Goles datos={props.partido.home_team_events}/>
@@ -36,8 +47,10 @@ const Partido = (props) => {
 
     return(
         <div>
-            {location} 
+            {location}
+            {props.partido.status === "future"? horas:null}
             {props.partido.status !== "future"? marcador:null}
+            {props.partido.status !== "future"? tiempo:null}
             <Bandera equipo={props.partido.home_team.code} paises={props.paises}/>
             <Bandera equipo={props.partido.away_team.code} paises={props.paises}/>
             {goles}
