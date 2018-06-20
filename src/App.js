@@ -12,9 +12,11 @@ class App extends Component {
     this.state={
       current: null,
       siguiente: null,
-      equipos : null
+      equipos : null,
+      hoy : null
     }
     this.getSiguiente = this.getSiguiente.bind(this);
+    this.getToday = this.getToday.bind(this);
     this.getTeams = this.getTeams.bind(this);
     this.getCurrent = this.getCurrent.bind(this);
   }
@@ -28,6 +30,14 @@ class App extends Component {
           })
           console.log(siguiente[0]);
           this.setState({ siguiente: siguiente[0] })
+        })
+  }
+  getToday() {
+    axios.get('http://worldcup.sfg.io/matches/today')
+        .then( response  => {
+
+          console.log(response.data);
+          this.setState({ hoy: response.data })
         })
   }
   getCurrent() {
@@ -56,6 +66,7 @@ class App extends Component {
   componentDidMount(){
     this.getTeams();
     this.getSiguiente();
+    this.getToday();
     this.getCurrent();
 
     this.intervalo = setInterval(() => {
@@ -72,19 +83,6 @@ class App extends Component {
     let partidos;
     console.log(this.state.equipos)
     if (this.state.current === null && this.state.siguiente !== null && this.state.equipos !== null){
-      //<Partido partido={this.state.siguiente}>
-      /* partidos = (
-      <div>
-        <p>{this.state.siguiente.location}</p>
-        <p>{this.state.siguiente.venue}</p>
-        <p>{this.state.siguiente.home_team.country}</p>
-        <p>{this.state.siguiente.time}</p>
-
-        <Bandera equipo={this.state.siguiente.home_team.code} paises={this.state.equipos}/>
-        <Bandera equipo={this.state.siguiente.away_team.code} paises={this.state.equipos}/>
-
-      </div>
-      ) */
       partidos =  (
         <Partido partido={this.state.siguiente} paises={this.state.equipos} />
       )
@@ -92,31 +90,33 @@ class App extends Component {
     }else if(this.state.current !==null && this.state.equipos !== null){
 
       partidos = (
-        //armar un componente con info de cada equipo para desplegar
-        //<Partido partido={this.state.current}>
-        <div>
-          <p>{this.state.current.location}</p>
-          <p>{this.state.current.venue}</p>
-          <p>{this.state.current.home_team.country}</p>
-          <p>{this.state.current.time}</p>
-
-          <Bandera equipo={this.state.current.home_team.code} paises={this.state.equipos}/>
-          <p>{this.state.current.home_team.goals}</p>
-          <Bandera equipo={this.state.current.away_team.code} paises={this.state.equipos}/>
-          <p>{this.state.current.away_team.goals}</p>
-          {/* la fecha se puede hacer usando momentjs
-          moment(ISO-8601)._d = fecha en formato gringo
-          moment(ISO-8601)._d.getFullYear() = año
-          moment(ISO-8601)._d.getDate() = día del mes y así con todos para armar la fecha en local gmt */}
-        </div>
+        <Partido partido={this.state.current} paises={this.state.equipos} />
       )
     }
+
+    let today;
+    if(this.state.hoy !== null && this.state.equipos !== null){
+      today = this.state.hoy.map( h => {
+        return (
+          <Partido partido={h} paises={this.state.equipos} />
+        )
+      })
+    }
+
     return (
       <div className="App">
         {partidos}
+        {today}
       </div>
     );
   }
 }
+
+
+
+/*  la fecha se puede hacer usando momentjs
+    moment(ISO-8601)._d = fecha en formato gringo
+    moment(ISO-8601)._d.getFullYear() = año
+    moment(ISO-8601)._d.getDate() = día del mes y así con todos para armar la fecha en local gmt */
 
 export default App;
