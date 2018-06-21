@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   getSiguiente() {
-    axios.get('http://worldcup.sfg.io/matches')
+    axios.get('https://world-cup-json.herokuapp.com/matches')
         .then( response  => {
 
           let siguiente = response.data.filter( r => {
@@ -35,7 +35,7 @@ class App extends Component {
         })
   }
   getToday() {
-    axios.get('http://worldcup.sfg.io/matches/today')
+    axios.get('https://world-cup-json.herokuapp.com/matches/today')
         .then( response  => {
 
           console.log(response.data);
@@ -43,7 +43,7 @@ class App extends Component {
         })
   }
   getCurrent() {
-    axios.get('http://worldcup.sfg.io/matches/current')
+    axios.get('https://world-cup-json.herokuapp.com/matches/current')
         .then( response  => {
           console.log(response.data);
           if(response.data.length === 0){
@@ -57,7 +57,7 @@ class App extends Component {
         })
   }
   getTeams(){
-    axios.get('http://api.football-data.org/v1/competitions/467/teams',{
+    axios.get('https://api.football-data.org/v1/competitions/467/teams',{
       headers: {'X-Auth-Token': '2c9a9879f8714d57b0ea2df6f199ee90'}
     })
         .then( response  => {

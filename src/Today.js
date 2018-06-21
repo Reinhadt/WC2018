@@ -16,7 +16,7 @@ class Today extends Component{
     }
 
     getToday() {
-        axios.get('http://worldcup.sfg.io/matches/today')
+        axios.get('https://world-cup-json.herokuapp.com/matches/today')
             .then( response  => {
 
               console.log(response.data);
