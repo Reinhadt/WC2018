@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Partido from './Partido'
 import Bandera from './Bandera'
+import Today from './Today';
 
 class App extends Component {
   constructor(props){
@@ -68,7 +69,7 @@ class App extends Component {
     this.getTeams();
     this.getSiguiente();
     this.getCurrent();
-    this.getToday();
+    //this.getToday();
     //OPTIMIZACIÓN:
     //Hacer componentDidUpdate para ver si el state cambió o sigue igual en cada intervalo!!!
     this.intervalo = setInterval(() => {
@@ -81,8 +82,12 @@ class App extends Component {
     clearInterval(this.intervalo);
   }
 
-  render() {
 
+  render() {
+    let t;
+    if(this.state.equipos !== null){
+      t = <Today f={this.state.flag} c={this.state.current} e={this.state.equipos} />
+    }
     let today;
     if(this.state.hoy !== null && this.state.equipos !== null){
 
@@ -113,7 +118,7 @@ class App extends Component {
           <h3 className="centerText">Next Match</h3>
           <Partido partido={this.state.siguiente} paises={this.state.equipos} />
           {/* hacer getToday aquí */}
-          {this.getToday()}
+
         </div>
       )
 
@@ -122,6 +127,7 @@ class App extends Component {
         <div>
           <h3 className="centerText">Live Match</h3>
           <Partido partido={this.state.current} paises={this.state.equipos} />
+
         </div>
       )
     }
@@ -131,8 +137,8 @@ class App extends Component {
         <h1 className="upper centerText">Rusia 2018</h1>
         {partidos}
         <h3 className="centerText">Today:</h3>
-        <div className="flexContainer today">
-          {today}
+        <div className="">
+          {t}
         </div>
       </div>
     );

@@ -38,7 +38,7 @@ const Partido = (props) => {
 
     let tiempo = (
         <div>
-            <h3 class="upper">{props.partido.time}</h3>
+            <h3 className="upper">{props.partido.time}</h3>
         </div>
     )
 
@@ -53,7 +53,7 @@ const Partido = (props) => {
                 <div className="golesLista">
                     <Goles className="away" datos={props.partido.away_team_events}/>
                 </div>
-                
+
             </div>
         )
     }else{

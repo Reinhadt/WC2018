@@ -1,5 +1,74 @@
 import React, {Component} from  'react';
+import axios from 'axios';
 import Partido from './Partido';
+
+
+class Today extends Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            hoy: null,
+            current: []
+        }
+
+        this.getToday = this.getToday.bind(this);
+    }
+
+    getToday() {
+        axios.get('http://worldcup.sfg.io/matches/today')
+            .then( response  => {
+
+              console.log(response.data);
+              this.setState({ hoy: response.data })
+            })
+    }
+
+    componentDidMount(){
+        console.log(this.props)
+        this.getToday();
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        console.log(nextProps.c)
+        return this.props.f === true || nextProps.c !== this.props.c || this.props.c !== null
+    }
+
+    render(){
+    console.log("TODAY")
+    let today;
+    if(this.state.hoy !== null && this.props.e !== null){
+
+        if(this.props.f === false){
+          today = this.state.hoy.filter( e => {
+            return e.fifa_id !== this.props.c.fifa_id
+          }).map( h => {
+            return (
+              <Partido partido={h} paises={this.props.e} />
+            )
+          })
+        }else if(this.props.f === true){
+          today = this.state.hoy.map( h => {
+            return (
+              <Partido partido={h} paises={this.props.e} />
+            )
+          })
+        }
+
+
+    }
+
+        return(
+            <div className="flexContainer today">
+                {today}
+            </div>
+        )
+    }
+
+}
+
+
+export default Today
 
 
 //HAZ EL AXIOS.GET DE TODAY AQUÍ EN EL COMPONENT DID MOUNT
