@@ -13,7 +13,8 @@ class App extends Component {
       current: null,
       siguiente: null,
       equipos : null,
-      hoy : null
+      hoy : null,
+      flag: false
     }
     this.getSiguiente = this.getSiguiente.bind(this);
     this.getToday = this.getToday.bind(this);
@@ -47,10 +48,10 @@ class App extends Component {
           if(response.data.length === 0){
             console.log(this.intervalo)
             clearInterval(this.intervalo)
-            this.setState({ current: null })
+            this.setState({ current: null, flag: true })
           }else{
             console.log("si")
-            this.setState({ current: response.data[0] })
+            this.setState({ current: response.data[0], flag: false })
           }
         })
   }
@@ -66,9 +67,8 @@ class App extends Component {
   componentDidMount(){
     this.getTeams();
     this.getSiguiente();
-    this.getToday();
     this.getCurrent();
-
+    this.getToday();
     //OPTIMIZACIÓN:
     //Hacer componentDidUpdate para ver si el state cambió o sigue igual en cada intervalo!!!
     this.intervalo = setInterval(() => {
@@ -110,7 +110,9 @@ class App extends Component {
     if (this.state.current === null && this.state.siguiente !== null && this.state.equipos !== null){
       partidos =  (
         <div>
+          <h3 className="centerText">Next Match</h3>
           <Partido partido={this.state.siguiente} paises={this.state.equipos} />
+          {/* hacer getToday aquí */}
           {this.getToday()}
         </div>
       )
@@ -118,15 +120,20 @@ class App extends Component {
     }else if(this.state.current !==null && this.state.equipos !== null){
       partidos = (
         <div>
+          <h3 className="centerText">Live Match</h3>
           <Partido partido={this.state.current} paises={this.state.equipos} />
         </div>
       )
     }
 
     return (
-      <div className="App">
+      <div className="App container">
+        <h1 className="upper centerText">Rusia 2018</h1>
         {partidos}
-        {today}
+        <h3 className="centerText">Today:</h3>
+        <div className="flexContainer today">
+          {today}
+        </div>
       </div>
     );
   }

@@ -8,7 +8,7 @@ const Bandera = (props) => {
     let banderaObj = flag[0]
 
     return(
-        <img src={banderaObj.crestUrl} />
+        <img className="bandera" src={banderaObj.crestUrl} />
     )
 }
 

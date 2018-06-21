@@ -16,19 +16,29 @@ const Partido = (props) => {
     )
     let horas = (
         <div>
-            <p>{fecha.date()}/{fecha.month()+1}</p>
+            <p>{fecha.date()}/0{fecha.month()+1}</p>
             <p>{fecha.hours()}:00 Hrs.</p>
         </div>
     )
     let marcador = (
         <div>
-            <p>{props.partido.home_team.goals}</p>
-            <p>{props.partido.away_team.goals}</p>
+            <h4>{props.partido.home_team.goals} - {props.partido.away_team.goals}</h4>
         </div>
     )
+    let tagLive;
+    if(props.partido.status === 'in progress'){
+        tagLive = (
+            <div className="tagLive">
+                <p className="upper">live</p>
+            </div>
+        )
+    }else{
+        tagLive = null;
+    }
+
     let tiempo = (
         <div>
-            <p>{props.partido.time}</p>
+            <h3 class="upper">{props.partido.time}</h3>
         </div>
     )
 
@@ -36,9 +46,14 @@ const Partido = (props) => {
 
     if(props.partido.status === 'completed' || props.partido.status === 'in progress'){
         goles = (
-            <div>
-                <Goles datos={props.partido.home_team_events}/>
-                <Goles datos={props.partido.away_team_events}/>
+            <div className="goles">
+                <div className="golesLista">
+                    <Goles datos={props.partido.home_team_events}/>
+                </div>
+                <div className="golesLista">
+                    <Goles className="away" datos={props.partido.away_team_events}/>
+                </div>
+                
             </div>
         )
     }else{
@@ -46,13 +61,17 @@ const Partido = (props) => {
     }
 
     return(
-        <div>
+        <div className="card">
             {location}
-            {props.partido.status === "future"? horas:null}
-            {props.partido.status !== "future"? marcador:null}
             {props.partido.status !== "future"? tiempo:null}
-            <Bandera equipo={props.partido.home_team.code} paises={props.paises}/>
-            <Bandera equipo={props.partido.away_team.code} paises={props.paises}/>
+            <div className="flexContainer">
+                <Bandera equipo={props.partido.home_team.code} paises={props.paises}/>
+                <Bandera equipo={props.partido.away_team.code} paises={props.paises}/>
+            </div>
+            <h3>{props.partido.home_team.country} vs {props.partido.away_team.country}</h3>
+            {props.partido.status !== "future"? marcador:null}
+            {tagLive}
+            {props.partido.status === "future"? horas:null}
             {goles}
         </div>
     )

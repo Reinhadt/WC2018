@@ -1,5 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3{
+  font-weight:600;
+}
+.centerText{
+  text-align:center;
+}
+.upper{
+  text-transform: uppercase;
+}
+.container{
+  max-width:1100px;
+  margin: 50px auto;
+}
+.card{
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  max-width: 450px;
+  height: auto;
+  margin:auto;
+  width:30%;
+}
+.centerCard{
+  margin:auto;
+}
+.flexContainer{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+.today{
+  margin-top: 10px;
+}
+.bandera{
+  max-width:120px;
+  height: 72px;
+}
+.goles{
+  display: flex;
+  font-size: 12px;
+  justify-content: space-around;
+  font-weight: 600;
+  text-align: left;
+}
+.tagLive{
+  font-size: 14px;
+  border: 1px solid #ececec;
+  max-width: 50px;
+  background: #f3f3f3;
+  margin: auto;
+  padding: 3px;
+  color: #ff2b2b;
+  font-weight: 600;
+}
+.tagLive p{
+  margin:0;
+}
+.today .card {
+  flex: 1;
+  margin-right: 20px;
+}
+
+@media(max-width:768px){
+  .card{
+    width: 95%;
+  }
+  .today .card{
+    flex:inherit;
+    margin:15px auto;
+  }
 }
