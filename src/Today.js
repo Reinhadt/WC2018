@@ -19,23 +19,23 @@ class Today extends Component{
         axios.get('https://world-cup-json.herokuapp.com/matches/today')
             .then( response  => {
 
-              console.log(response.data);
+              //console.log(response.data);
               this.setState({ hoy: response.data })
             })
     }
 
     componentDidMount(){
-        console.log(this.props)
+        //console.log(this.props)
         this.getToday();
     }
 
     shouldComponentUpdate(nextProps, nextState){
-        console.log(nextProps.c)
+        //console.log(nextProps.c)
         return this.props.f === true || nextProps.c !== this.props.c || this.props.c !== null
     }
 
     render(){
-    console.log("TODAY")
+    //console.log("TODAY")
     let today;
     if(this.state.hoy !== null && this.props.e !== null){
 

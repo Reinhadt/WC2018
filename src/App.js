@@ -30,7 +30,7 @@ class App extends Component {
           let siguiente = response.data.filter( r => {
             return r.status === "future"
           })
-          console.log(siguiente[0]);
+          //console.log(siguiente[0]);
           this.setState({ siguiente: siguiente[0] })
         })
   }
@@ -38,20 +38,20 @@ class App extends Component {
     axios.get('https://world-cup-json.herokuapp.com/matches/today')
         .then( response  => {
 
-          console.log(response.data);
+          //console.log(response.data);
           this.setState({ hoy: response.data })
         })
   }
   getCurrent() {
     axios.get('https://world-cup-json.herokuapp.com/matches/current')
         .then( response  => {
-          console.log(response.data);
+          //console.log(response.data);
           if(response.data.length === 0){
-            console.log(this.intervalo)
+            //console.log(this.intervalo)
             clearInterval(this.intervalo)
             this.setState({ current: null, flag: true })
           }else{
-            console.log("si")
+            //console.log("si")
             this.setState({ current: response.data[0], flag: false })
           }
         })
@@ -61,7 +61,7 @@ class App extends Component {
       headers: {'X-Auth-Token': '2c9a9879f8714d57b0ea2df6f199ee90'}
     })
         .then( response  => {
-          console.log(response.data.teams);
+          //console.log(response.data.teams);
           this.setState({ equipos: response.data.teams })
         })
   }
@@ -73,7 +73,7 @@ class App extends Component {
     //OPTIMIZACIÓN:
     //Hacer componentDidUpdate para ver si el state cambió o sigue igual en cada intervalo!!!
     this.intervalo = setInterval(() => {
-      console.log("Intervalo cumplido")
+      //console.log("Intervalo cumplido")
       this.getCurrent()
     }, 40*1000);
   }
@@ -111,7 +111,7 @@ class App extends Component {
     }
 
     let partidos;
-    console.log(this.state.equipos)
+    //console.log(this.state.equipos)
     if (this.state.current === null && this.state.siguiente !== null && this.state.equipos !== null){
       partidos =  (
         <div>

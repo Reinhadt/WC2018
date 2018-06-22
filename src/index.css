@@ -66,7 +66,11 @@ h1, h2, h3{
   flex: 1;
   margin-right: 20px;
 }
-
+.golesLista{
+  flex: 1;
+  margin-left: 30px;
+}
+}
 @media(max-width:768px){
   .card{
     width: 95%;
