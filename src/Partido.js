@@ -5,7 +5,7 @@ import Bandera from './Bandera'
 import Goles from './Goles'
 
 const Partido = (props) => {
-    let fecha = moment(props.partido.datetime).add(9, 'hours');
+    let fecha = moment(props.partido.datetime);
 
 
     let location = (
