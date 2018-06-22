@@ -17,7 +17,7 @@ const Partido = (props) => {
     let horas = (
         <div>
             <p>{fecha.date()}/0{fecha.month()+1}</p>
-            <p>{fecha.hours()}:00 Hrs.</p>
+            <p>{fecha.hours()+9}:00 Hrs.</p>
         </div>
     )
     let marcador = (
