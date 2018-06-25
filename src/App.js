@@ -119,7 +119,7 @@ class App extends Component {
         <div>
           <h3 className="centerText">Next Match</h3>
           <Partido clase="mainPartido" partido={this.state.siguiente} paises={this.state.equipos} />
-          <Estadisticas datos={this.state.siguiente} />
+
 
         </div>
       )
