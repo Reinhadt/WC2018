@@ -30,7 +30,7 @@ class App extends Component {
         .then( response  => {
 
           let siguiente = response.data.filter( r => {
-            return r.status === "completed"
+            return r.status === "future"
           })
           //console.log(siguiente[0]);
           this.setState({ siguiente: siguiente[0] })
@@ -119,12 +119,11 @@ class App extends Component {
         <div>
           <h3 className="centerText">Next Match</h3>
           <Partido clase="mainPartido" partido={this.state.siguiente} paises={this.state.equipos} />
-
-
         </div>
       )
 
     }else if(this.state.current !==null && this.state.equipos !== null){
+      console.log(typeof(this.state.siguiente))
       partidos = (
         <div>
           <h3 className="centerText">Live Match</h3>
