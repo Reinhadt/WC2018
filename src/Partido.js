@@ -61,7 +61,7 @@ const Partido = (props) => {
     }
 
     return(
-        <div className="card">
+        <div className={`card ${props.clase}`}>
             {location}
             {props.partido.status !== "future"? tiempo:null}
             <div className="flexContainer">

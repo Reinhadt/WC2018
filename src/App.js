@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'antd/dist/antd.css';
 import axios from 'axios';
 
 import Partido from './Partido'
 import Bandera from './Bandera'
-import Today from './Today';
+import Today from './Today'
+import Estadisticas from './Estadisticas'
 
 class App extends Component {
   constructor(props){
@@ -28,7 +30,7 @@ class App extends Component {
         .then( response  => {
 
           let siguiente = response.data.filter( r => {
-            return r.status === "future"
+            return r.status === "completed"
           })
           //console.log(siguiente[0]);
           this.setState({ siguiente: siguiente[0] })
@@ -116,8 +118,8 @@ class App extends Component {
       partidos =  (
         <div>
           <h3 className="centerText">Next Match</h3>
-          <Partido partido={this.state.siguiente} paises={this.state.equipos} />
-          {/* hacer getToday aquí */}
+          <Partido clase="mainPartido" partido={this.state.siguiente} paises={this.state.equipos} />
+          <Estadisticas datos={this.state.siguiente} />
 
         </div>
       )
