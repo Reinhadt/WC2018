@@ -16,11 +16,15 @@ class Today extends Component{
     }
 
     getToday() {
-        axios.get('https://world-cup-json.herokuapp.com/matches/today')
+        axios.get('https://worldcup.sfg.io/matches/today')
             .then( response  => {
 
               //console.log(response.data);
-              this.setState({ hoy: response.data })
+              if(response.data.length > 0){
+                this.setState({ hoy: response.data })
+              }else{
+                this.setState({ hoy: null })
+              }
             })
     }
 
@@ -60,7 +64,7 @@ class Today extends Component{
 
         return(
             <div className="flexContainer today">
-                {today}
+                {this.state.hoy!==null?today:<p>No matches for today :(</p>}
             </div>
         )
     }

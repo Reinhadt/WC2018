@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   getSiguiente() {
-    axios.get('https://world-cup-json.herokuapp.com/matches')
+    axios.get('https://worldcup.sfg.io/matches')
         .then( response  => {
 
           let siguiente = response.data.filter( r => {
@@ -37,15 +37,20 @@ class App extends Component {
         })
   }
   getToday() {
-    axios.get('https://world-cup-json.herokuapp.com/matches/today')
+    axios.get('https://worldcup.sfg.io/matches/today')
         .then( response  => {
 
-          //console.log(response.data);
-          this.setState({ hoy: response.data })
+          console.log(response.data);
+          if(response.data.length > 0){
+            this.setState({ hoy: response.data })
+          }else{
+            this.setState({ hoy: null })
+          }
+
         })
   }
   getCurrent() {
-    axios.get('https://world-cup-json.herokuapp.com/matches/current')
+    axios.get('https://worldcup.sfg.io/matches/current')
         .then( response  => {
           //console.log(response.data);
           if(response.data.length === 0){

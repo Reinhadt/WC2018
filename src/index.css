@@ -79,8 +79,14 @@ h1, h2, h3{
   display: none !important;
 }
 .ant-progress-line{
-  max-width: 90%;
+  max-width: 85%;
   margin: auto;
+}
+.stat{
+  margin-bottom: 15px
+}
+.stat h3{
+  margin: 0;
 }
 @media(max-width:1100px){
   .today .card {
@@ -89,6 +95,9 @@ h1, h2, h3{
   }
 }
 @media(max-width:768px){
+  .mainPartido{
+    width: 90%;
+  }
   .card{
     width: 95%;
   }

@@ -3,6 +3,7 @@ import moment from 'moment';
 
 import Bandera from './Bandera'
 import Goles from './Goles'
+import Estadisticas from './Estadisticas';
 
 const Partido = (props) => {
     let fecha = moment(props.partido.datetime);
@@ -43,6 +44,7 @@ const Partido = (props) => {
     )
 
     let goles;
+    let estadisticas;
 
     if(props.partido.status === 'completed' || props.partido.status === 'in progress'){
         goles = (
@@ -56,23 +58,30 @@ const Partido = (props) => {
 
             </div>
         )
+        estadisticas = (
+            <Estadisticas datos={props.partido} />
+        )
     }else{
-        goles = null
+        goles = null;
+        estadisticas = null
     }
 
     return(
-        <div className={`card ${props.clase}`}>
-            {location}
-            {props.partido.status !== "future"? tiempo:null}
-            <div className="flexContainer">
-                <Bandera equipo={props.partido.home_team.code} paises={props.paises}/>
-                <Bandera equipo={props.partido.away_team.code} paises={props.paises}/>
+        <div>
+            <div className={`card ${props.clase}`}>
+                {location}
+                {props.partido.status !== "future"? tiempo:null}
+                <div className="flexContainer">
+                    <Bandera equipo={props.partido.home_team.code} paises={props.paises}/>
+                    <Bandera equipo={props.partido.away_team.code} paises={props.paises}/>
+                </div>
+                <h3>{props.partido.home_team.country} vs {props.partido.away_team.country}</h3>
+                {props.partido.status !== "future"? marcador:null}
+                {tagLive}
+                {props.partido.status === "future"? horas:null}
+                {goles}
             </div>
-            <h3>{props.partido.home_team.country} vs {props.partido.away_team.country}</h3>
-            {props.partido.status !== "future"? marcador:null}
-            {tagLive}
-            {props.partido.status === "future"? horas:null}
-            {goles}
+            {estadisticas}
         </div>
     )
 
