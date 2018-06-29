@@ -16,6 +16,8 @@ class Today extends Component{
     }
 
     getToday() {
+        //hacer getToday un getDate con fecha de hoy para obtener los partidos de hoy
+        //si no hay partidos hoy, obtienes los de ayer en un segundo promise y llenas state de la fecha de ayer!!!
         axios.get('https://worldcup.sfg.io/matches/today')
             .then( response  => {
 
